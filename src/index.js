@@ -1,5 +1,6 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('node:path');
+const fs = require('fs')
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -14,7 +15,7 @@ const createWindow = () => {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: true
     },
   });
 
@@ -52,3 +53,13 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+ipcMain.on('save-file', (event, fileName)=>{
+  const filePath = path.join(__dirname, `${fileName}.txt`)
+  fs.writeFile(filePath, 'Generate file', (err)=>{
+    if(err){
+      console.log('Error saving file', err)
+    } else {
+      console.log(`File saved as: ${filePath}`)
+    }
+  })
+})
