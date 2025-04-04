@@ -9,17 +9,24 @@
     <div class="form">
       <label for="dName">Name:</label>
       <input type="text" id="dName" name="dName" value="">
-      <button onclick="saveFile()">Save</button>
+      <button id="createBtn" ">Save</button>
     </div>
     <script>
-      const saveFile=()=>{
-        const fileName = document.getElementById('dName').value
-        if(fileName){
-          window.electronAPI.saveFile(fileName)
-        } else {
+      
+      const createBtn = document.getElementById('createBtn')
+      const input = document.getElementById('dName')
+      
+      createBtn.addEventListener('click', ()=>{
+        const name = input.value.trim()
+        if(!name){
           alert('Please enter a name')
+          return
         }
-      }
+
+        window.electronAPI.saveFile(name)
+
+        input.value = ''
+      })
     </script>
   </body>
 </html>
