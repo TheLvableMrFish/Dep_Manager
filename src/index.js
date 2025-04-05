@@ -63,3 +63,13 @@ ipcMain.on('save-file', (event, fileName)=>{
     }
   })
 })
+
+ipcMain.handle('get-files', async ()=>{
+  try{
+    const files = await fs.promises.readdir(filesDir)
+    return files
+  } catch(err){
+    console.log('Error reading files:', err)
+    return []
+  }
+})

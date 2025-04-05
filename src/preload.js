@@ -3,5 +3,6 @@
 const {contextBridge, ipcRenderer} = require('electron')
 
 contextBridge.exposeInMainWorld('electronAPI', {
-    saveFile: (fileName)=> ipcRenderer.send('save-file', fileName)
+    saveFile: (fileName)=> ipcRenderer.send('save-file', fileName),
+    getFiles: ()=> ipcRenderer.invoke('get-files')
 })
