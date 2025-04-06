@@ -1,11 +1,20 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('node:path');
 const fs = require('fs')
+const filesDir = path.join(__dirname, 'files')
+
+// Make sure folder exists
+if(!fs.existsSync(filesDir)){
+  fs.mkdirSync(filesDir)
+} else {
+  console.log("Folder doesn't exist")
+}
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
 }
+
 
 const createWindow = () => {
   // Create the browser window.
