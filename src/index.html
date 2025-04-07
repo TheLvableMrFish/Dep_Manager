@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self';">
     <title>Dep-Manager</title>
     <link rel="stylesheet" href="index.css" />
   </head>
@@ -9,47 +10,12 @@
     <div class="form">
       <label for="dName">Name:</label>
       <input type="text" id="dName" name="dName" value="">
-      <button id="createBtn" ">Save</button>
+      <button id="createBtn">Save</button>
 
       <h3>Files in folder</h3>
       <ul id="fileList"></ul>
     </div>
-    <script>
-
-      const createBtn = document.getElementById('createBtn')
-      const input = document.getElementById('dName')
-      const fileList = document.getElementById('fileList')
-
-      const loadFiles = async ()=>{
-        const files = await window.electronAPI.getFiles()
-        fileList.innerHTML = ''
-
-        if(files.length === 0){
-          fileList.innerHTML = '<li><i>No files found</i></li>'
-        } else {
-          files.forEach(file =>{
-            const li = document.createElement('li')
-            li.textContent = file
-            fileList.appendChild(li)
-          })
-          }
-      }
-      
-      createBtn.addEventListener('click', ()=>{
-        const name = input.value.trim()
-        if(!name){
-          alert('Please enter a name')
-          return
-        }
-
-        window.electronAPI.saveFile(name)
-
-        input.value = ''
-
-        setTimeout(loadFiles, 500)
-      })
-
-      window.addEventListener('DOMContentLoaded', loadFiles)
+    <script src="formHandlers.js">
     </script>
   </body>
 </html>

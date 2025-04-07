@@ -63,7 +63,7 @@ app.on('window-all-closed', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 ipcMain.on('save-file', (event, fileName)=>{
-  const filePath = path.join(__dirname, `${fileName}.txt`)
+  const filePath = path.join(filesDir, `${fileName}.txt`)
   fs.writeFile(filePath, 'Generate file', (err)=>{
     if(err){
       console.log('Error saving file', err)
