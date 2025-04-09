@@ -10,3 +10,10 @@ body{
 .label-name{
     margin-left: 0;
 }
+
+.input-name{
+    &:focus{
+        outline: none;
+        box-shadow: none;
+    }
+}
